@@ -106,14 +106,17 @@ def test():
     state = state.reshape(1,state_size)
     total_reward = 0
     # This is a continous game, it can go forever, so limit it in 5000 time step.
-    for time_steps in range(5000):  
+    for time_steps in range(5000): 
         env.render()
         action = agent.select_action(state)
         next_state, reward, done, _= env.step(action)
         
         reward = reward if not done else -20
 
+        next_state = next_state.reshape(1,state_size)
+        
         total_reward += reward
+        
         state = next_state
         
         if done:
